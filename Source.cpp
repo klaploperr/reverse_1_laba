@@ -1,17 +1,19 @@
-#include <iostream>
+ο»Ώ#include <iostream>
 #include <string>
 #include <fstream>
+#include "obfuscate.h"
 
 using namespace std;
 int pass_check();
 void menu();
 int WriteToFile(char* path, string data);
 int ReadFile(char* path);
-string password = "ikizi";
-const char* pathToFile = "C:\\Users\\metal\\Desktop\\Πεβεπρ\\test.txt";
+const char* pass = AY_OBFUSCATE("ikizi");
+string password(pass);
+const char* pathToFile = AY_OBFUSCATE("C:\\Users\\metal\\Desktop\\Π ΠµΠ²ΠµΡ€Ρ\\test.txt");
 
 int main() {
-	cout << "Welcome!" << endl;
+	cout << AY_OBFUSCATE("Welcome!") << endl;
 	if (!pass_check())
 		return 0;
 	menu();
@@ -21,7 +23,7 @@ int main() {
 void menu() {
 	char choice;
 	string data = "";
-	cout << "INTERFACE\n[r]ead file\n[w]rite to file\n[e]xit";
+	cout << AY_OBFUSCATE("INTERFACE\n[r]ead file\n[w]rite to file\n[e]xit");
 	while (1)
 	{
 		cout << "\n>> ";
@@ -35,7 +37,7 @@ void menu() {
 		}
 		case 'w':
 		{
-			cout << "Enter data: ";
+			cout << AY_OBFUSCATE("Enter data: ");
 			cin >> data;
 			WriteToFile((char*)pathToFile, (char*)data.c_str());
 			break;
@@ -47,7 +49,7 @@ void menu() {
 		}
 		default:
 		{
-			cout << "Wrong command";
+			cout << AY_OBFUSCATE("Wrong command");
 		}
 		}
 	}
@@ -58,14 +60,14 @@ int WriteToFile(char* path, string data)
 	ofstream file(path, ios::out | ios::app | ios::ate);
 	if (!file.is_open())
 	{
-		cout << "Can`t open file" << endl;
+		cout << AY_OBFUSCATE("Can`t open file") << endl;
 		return -1;
 	}
 	else
-		cout << "File is opened" << endl;
+		cout << AY_OBFUSCATE("File is opened") << endl;
 	file.write(data.c_str(), data.size());
 	file.close();
-	cout << "Operation finished" << endl;
+	cout << AY_OBFUSCATE("Operation finished") << endl;
 	return 0;
 }
 
@@ -75,11 +77,11 @@ int ReadFile(char* path)
 	ifstream file(path, ios::in | ios::binary | ios::ate);
 	if (!file.is_open())
 	{
-		cout << "Can`t open file" << endl;
+		cout << AY_OBFUSCATE("Can`t open file") << endl;
 		return -1;
 	}
 	else
-		cout << "File is opened" << endl;
+		cout << AY_OBFUSCATE("File is opened") << endl;
 	size = file.tellg();
 	file.seekg(0, file.beg);
 	char* data = new char[size + 1];
@@ -93,19 +95,16 @@ int ReadFile(char* path)
 int pass_check() {
 	string check = "";
 	int attempt = 3;
-	cout << "Enter password: ";
+	cout << AY_OBFUSCATE("Enter password: ");
 	while (attempt) {
 		cin >> check;
-		for (int i = 0; i < check.length(); i++) {
-			check[i] = check[i] ^ 2;
-		}
 		if (check._Equal(password)) {
-			cout << "Success!" << endl;
+			cout << AY_OBFUSCATE("Success!") << endl;
 			return 1;
 		}
 		else {
 			attempt--;
-			cout << "Wrong password. Try again!" << endl;
+			cout << AY_OBFUSCATE("Wrong password. Try again!") << endl;
 		}
 	}
 	return 0;
